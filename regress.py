@@ -97,4 +97,4 @@ if __name__ == "__main__":
             ds["q"] = (["time", "lev", "lat", "lon"], q, {"units":"kg/kg"})
             ds["me"] = (["time", "lev", "lat", "lon"], me, {"units":"m2/s2"})
             ds["me0"] = (["time", "lat", "lon"], me0, {"units":"m2/s2"})
-        ds.to_netcdf(f"{modedir}/{init}/reg{i+1:02}.nc")
+        ds.to_netcdf(f"{modedir}/reg{i+1:02}.nc")
