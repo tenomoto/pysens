@@ -79,22 +79,18 @@ if __name__ == "__main__":
                 me0 += me[:,k,:,:] * wlev.data[k]
 
         ds = xr.Dataset({
-            "u": (["time", "lev", "lat", "lon"], u, {"units":"m/s"}),
-            "v": (["time", "lev", "lat", "lon"], v, {"units":"m/s"}),
-            "T": (["time", "lev", "lat", "lon"], T, {"units":"K"}),
+            "u": (["time", "plev", "lat", "lon"], u, {"units":"m/s"}),
+            "v": (["time", "plev", "lat", "lon"], v, {"units":"m/s"}),
+            "T": (["time", "plev", "lat", "lon"], T, {"units":"K"}),
             "ps": (["time", "lat", "lon"], ps, {"units":"Pa"}),
-            "ke": (["time", "lev", "lat", "lon"], ke, {"units":"m2/s2"}),
-            "te": (["time", "lev", "lat", "lon"], te, {"units":"m2/s2"}),
+            "ke": (["time", "plev", "lat", "lon"], ke, {"units":"m2/s2"}),
+            "te": (["time", "plev", "lat", "lon"], te, {"units":"m2/s2"}),
             "ke0": (["time", "lat", "lon"], ke0, {"units":"m2/s2"}),
             "te0": (["time", "lat", "lon"], te0, {"units":"m2/s2"}),
             },
-            coords = {
-                "time": ("time", time),
-                "lev": ("lev", plev),
-                "lat": ("lat", lat),
-                "lon": ("lon", lon),},)
+            coords = {"time": time, "plev": plev, "lat": lat, "lon": lon,},)
         if lmoist:
-            ds["q"] = (["time", "lev", "lat", "lon"], q, {"units":"kg/kg"})
-            ds["me"] = (["time", "lev", "lat", "lon"], me, {"units":"m2/s2"})
+            ds["q"] = (["time", "plev", "lat", "lon"], q, {"units":"kg/kg"})
+            ds["me"] = (["time", "plev", "lat", "lon"], me, {"units":"m2/s2"})
             ds["me0"] = (["time", "lat", "lon"], me0, {"units":"m2/s2"})
         ds.to_netcdf(f"{modedir}/reg{i+1:02}.nc")
