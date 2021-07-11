@@ -6,7 +6,6 @@ init="2019100912"
 nmem = 26
 mem = np.arange(nmem)
 nlon, nlat, nlev, nt = 720, 361, 8, 2
-#nlon, nlat, nlev = 720, 361, 3
 nlonv, nlatv = 11, 7
 lon0, lon1 = 137, 142
 lat0, lat1 =  36,  33

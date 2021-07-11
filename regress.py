@@ -2,10 +2,6 @@ import numpy as np
 import xarray as xr
 import config
 from datetime import datetime
-import sys
-
-# Nakashita and Enomoto 2021
-# https://doi.org/10.2151/sola.17A-006
 
 tfact = config.tfact
 pfact = config.pfact
