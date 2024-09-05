@@ -17,9 +17,11 @@ lmoist = config.lmoist
 psname = config.names["ps"]
 uname, vname = config.names["u"], config.names["v"]
 tname = config.names["T"]
+surffname = config.surffname
 plevfname = config.plevfname
 if lmoist:
     qname = config.names["q"]
+ft = config.ft
 indir = config.indir
 svdir = config.svdir
 wlat = config.wlat
@@ -29,11 +31,11 @@ tv = config.tv
 if __name__ == "__main__":
     zmat = np.zeros([nstate, nmem])
     for i in range(nmem):
-        with xr.open_dataset(f"{indir}/ps{i+1:02}.nc") as ds:
+        with xr.open_dataset(f"{indir}/{ft}/{surffname}{i+1:02}.nc") as ds:
             ps = ds[psname].loc[tv, lat0:lat1, lon0:lon1]
             ps *= pfact * wlat
             zmat[0:size2d, i] = ps.values.flatten()
-        with xr.open_dataset(f"{indir}/{plevfname}{i+1:02}.nc") as ds:
+        with xr.open_dataset(f"{indir}/{ft}/{plevfname}{i+1:02}.nc") as ds:
             u = ds[uname].loc[tv, :, lat0:lat1, lon0:lon1]
             u *= wlat * wlev
             zmat[size2d:size2d+size3d, i] = u.values.flatten()

@@ -20,6 +20,7 @@ plevfname = config.plevfname
 if lmoist:
     qfact = config.qfact
     qname = config.names["q"]
+tt = config.tt
 indir = config.indir
 svdir = config.svdir
 modedir = config.modedir
@@ -46,10 +47,10 @@ if __name__ == "__main__":
         q = np.zeros([nt, nlev, nlat, nlon])
 
     for i in range(nmem):
-        with xr.open_dataset(f"{indir}/{surffname}{i+1:02}.nc") as ds:
+        with xr.open_dataset(f"{indir}/{tt}/{surffname}{i+1:02}.nc") as ds:
             for j in range(nt):
                 zmat[j,:,i] = ds[psname][j,:,:].values.flatten()
-        with xr.open_dataset(f"{indir}/{plevfname}{i+1:02}.nc") as ds:
+        with xr.open_dataset(f"{indir}/{tt}/{plevfname}{i+1:02}.nc") as ds:
             for j in range(nt):
                 zmatu[j,:,i] = ds[uname][j,:,:,:].values.flatten()
                 zmatv[j,:,i] = ds[vname][j,:,:,:].values.flatten()
@@ -93,4 +94,4 @@ if __name__ == "__main__":
             ds["q"] = (["time", "plev", "lat", "lon"], q, {"units":"kg/kg"})
             ds["me"] = (["time", "plev", "lat", "lon"], me, {"units":"m2/s2"})
             ds["me0"] = (["time", "lat", "lon"], me0, {"units":"m2/s2"})
-        ds.to_netcdf(f"{modedir}/reg{i+1:02}.nc")
+        ds.to_netcdf(f"{modedir}/{tt}/reg{i+1:02}.nc")
