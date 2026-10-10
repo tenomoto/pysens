@@ -48,7 +48,7 @@ if __name__ == "__main__":
             if lmoist:
                 q = ds[tname].loc[tv, :, lat0:lat1, lon0:lon1]
                 q *= qfact * wlat * wlev
-                zmat[size2d+size3d*3:, i] = T.values.flatten()
+                zmat[size2d+size3d*3:, i] = q.values.flatten()
     ss, vmat = np.linalg.eig(zmat.transpose() @ zmat)
     s = np.sqrt(ss)
     np.save(f"{svdir}/s.npy", np.sqrt(ss))
