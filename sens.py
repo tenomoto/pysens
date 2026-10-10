@@ -46,7 +46,7 @@ if __name__ == "__main__":
             T *= tfact * wlat * wlev
             zmat[size2d+size3d*2:size2d+size3d*3, i] = T.values.flatten()
             if lmoist:
-                q = ds[tname].loc[tv, :, lat0:lat1, lon0:lon1]
+                q = ds[qname].loc[tv, :, lat0:lat1, lon0:lon1]
                 q *= qfact * wlat * wlev
                 zmat[size2d+size3d*3:, i] = q.values.flatten()
     ss, vmat = np.linalg.eig(zmat.transpose() @ zmat)
